@@ -1,0 +1,114 @@
+C51 COMPILER V9.54   SEMAPHORE                                                             09/12/2016 23:04:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE SEMAPHORE
+OBJECT MODULE PLACED IN .\Objects\Semaphore.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\Common\Semaphore.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\Include) 
+                    -DEFINE(FOSC_221184) DEBUG OBJECTEXTEND PRINT(.\Listings\Semaphore.lst) TABS(2) OBJECT(.\Objects\Semaphore.obj)
+
+line level    source
+
+   1          #include <rtx51tny.h>                 /* RTX-51 tiny functions & defines      */
+   2          
+   3          #include "Typedef.h"
+   4          #include "Common.h"
+   5          #include "Semaphore.h"
+   6          
+   7          SEM_SET sem_tab[MAX_SEMAPHORES] = {0};
+   8          
+   9          /* 初始化信号量 */
+  10          #pragma disable
+  11          void init_semaphore(uint8_t sem_id, uint8_t max_count, uint8_t count)
+  12          {
+  13   1          sem_tab[sem_id].max_count = max_count;
+  14   1          sem_tab[sem_id].count = count;
+  15   1          sem_tab[sem_id].pending_tasks = 0;
+  16   1      }
+  17          
+  18          /* 等待信号量 */
+  19          #pragma disable
+  20          char pend_sem(uint8_t sem_id)
+  21          {
+  22   1          if(sem_tab[sem_id].count > 0) 
+  23   1          {
+  24   2              sem_tab[sem_id].count--;      /* 获取信号量 */
+  25   2              return SEM_FAIL;
+  26   2          }
+  27   1          
+  28   1          /* 标记为等待状态 */
+  29   1          sem_tab[sem_id].pending_tasks = (1 << os_running_task_id()); 
+  30   1          
+  31   1          return SEM_OK;
+  32   1      }
+  33          
+  34          void pend_semaphore(uint8_t sem_id)
+  35          {
+  36   1          if(pend_sem(sem_id) == 0)
+  37   1          {
+  38   2              while(os_wait(K_TMO, 255, 0) != RDY_EVENT);    /* 等待，直到该任务就绪 */
+  39   2          }
+  40   1      }
+  41          
+  42          /* 释放信号量 */
+  43          #pragma disable
+  44          char release_sem(uint8_t sem_id)
+  45          {
+  46   1          uint8_t  i = 0;
+  47   1          uint16_t temp = 1;
+  48   1        
+  49   1          if((sem_tab[sem_id].count > 0)||(sem_tab[sem_id].pending_tasks == 0))
+  50   1          {
+  51   2              sem_tab[sem_id].count++; /* 释放信号量 */
+  52   2            
+  53   2              if(sem_tab[sem_id].count > sem_tab[sem_id].max_count)
+  54   2              {
+C51 COMPILER V9.54   SEMAPHORE                                                             09/12/2016 23:04:42 PAGE 2   
+
+  55   3                  sem_tab[sem_id].count = sem_tab[sem_id].max_count;
+  56   3              }
+  57   2              
+  58   2              return SEM_FAIL;
+  59   2          }
+  60   1          
+  61   1          for(i = 0; i < MAX_TASK; i++)
+  62   1          {
+  63   2              if(((sem_tab[sem_id].pending_tasks) & (temp)) != 0)
+  64   2              {
+  65   3                  /* 查找任务表 */
+  66   3                  if(((sem_tab[sem_id].pending_tasks) & (~(1<<i))) != 0)
+  67   3                  {             
+  68   4                      return (i);                                     /* 返回等待信号量的任务号 */
+  69   4                  }
+  70   3              }
+  71   2              temp <<= 1;
+  72   2          }
+  73   1          
+  74   1          return SEM_OK;
+  75   1      }
+  76          
+  77          void release_semaphore(uint8_t sem_id) 
+  78          {
+  79   1          char task_id = 0;
+  80   1        
+  81   1          task_id = release_sem(sem_id);
+  82   1        
+  83   1          if(task_id != SEM_FAIL)
+  84   1          {
+  85   2              os_set_ready(task_id);  /* 任务task_id进入就绪状态 */
+  86   2              os_switch_task();
+  87   2          }
+  88   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    324    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
