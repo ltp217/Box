@@ -8,3 +8,4 @@
 TO ".\Objects\Demo" Rtx51Tiny 
 PRINT(".\Listings\Demo.m51") RAMSIZE(256) 
 DISABLEWARNING (16) 
+OVERLAY( * !(printf,pend_sem) )

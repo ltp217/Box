@@ -1,10 +1,10 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        09/12/2016  23:04:43  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/13/2016  22:48:45  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
 C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\demo.obj, .\Objects\Common.obj, .\Objects\Delay.obj, .\Objects\Version.obj, .\Obje
 >> cts\Semaphore.obj, .\Objects\Conf_tny.obj, .\Objects\STARTUP.obj TO .\Objects\Demo RTX51TINY PRINT (.\Listings\Demo.m
->> 51) RAMSIZE (256) DISABLEWARNING (16)
+>> 51) RAMSIZE (256) DISABLEWARNING (16) OVERLAY (* !  (PRINTF, PEND_SEM))
 
 
 MEMORY MODEL: SMALL
@@ -59,7 +59,7 @@ LINK MAP OF MODULE:  .\Objects\Demo (DEMO)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 2
 
 
             DATA    0008H     0006H     ABSOLUTE     
@@ -67,21 +67,21 @@ LINK MAP OF MODULE:  .\Objects\Demo (DEMO)
             DATA    001AH     0004H     UNIT         ?DT?_INITIALUART0_TIMER3_TYPE5?COMMON
             DATA    001EH     0001H     UNIT         ?C?LIB_DATA
                     001FH     0001H                  *** GAP ***
-            BIT     0020H.0   0003H.3   UNIT         _BIT_GROUP_
-            BIT     0023H.3   0000H.2   UNIT         ?RTX?BITS
-            BIT     0023H.5   0000H.1   UNIT         ?BI?DEMO
-                    0023H.6   0000H.2                *** GAP ***
-            DATA    0024H     003CH     UNIT         _DATA_GROUP_
-            DATA    0060H     0004H     UNIT         ?DT?_INITIALUART0_TIMER3_TYPE6?COMMON
-            DATA    0064H     0004H     UNIT         ?DT?_INITIALUART1_TIMER3?COMMON
-            DATA    0068H     0004H     UNIT         ?DT?_TIMER0_DELAY1MS?DELAY
-            DATA    006CH     0004H     UNIT         ?DT?_TIMER1_DELAY1MS?DELAY
-            DATA    0070H     0004H     UNIT         ?DT?_TIMER2_DELAY1MS?DELAY
-            DATA    0074H     0004H     UNIT         ?DT?_TIMER3_DELAY1MS?DELAY
-            DATA    0078H     0004H     UNIT         ?DT?_WAKEUP_TIMER_DELAY25MS?DELAY
-            IDATA   007CH     0006H     UNIT         ?RTX?TASKSTATE?S
-            IDATA   0082H     0003H     UNIT         ?RTX?TASKSP?S
-            IDATA   0085H     0001H     UNIT         ?STACK
+            BIT     0020H.0   0001H.1   UNIT         _BIT_GROUP_
+            BIT     0021H.1   0000H.2   UNIT         ?RTX?BITS
+            BIT     0021H.3   0000H.1   UNIT         ?BI?DEMO
+                    0021H.4   0000H.4                *** GAP ***
+            DATA    0022H     0014H     UNIT         _DATA_GROUP_
+            DATA    0036H     0004H     UNIT         ?DT?_INITIALUART0_TIMER3_TYPE6?COMMON
+            DATA    003AH     0004H     UNIT         ?DT?_INITIALUART1_TIMER3?COMMON
+            DATA    003EH     0004H     UNIT         ?DT?_TIMER0_DELAY1MS?DELAY
+            DATA    0042H     0004H     UNIT         ?DT?_TIMER1_DELAY1MS?DELAY
+            DATA    0046H     0004H     UNIT         ?DT?_TIMER2_DELAY1MS?DELAY
+            DATA    004AH     0004H     UNIT         ?DT?_TIMER3_DELAY1MS?DELAY
+            DATA    004EH     0004H     UNIT         ?DT?_WAKEUP_TIMER_DELAY25MS?DELAY
+            IDATA   0052H     0006H     UNIT         ?RTX?TASKSTATE?S
+            IDATA   0058H     0003H     UNIT         ?RTX?TASKSP?S
+            IDATA   005BH     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
@@ -119,7 +119,7 @@ LINK MAP OF MODULE:  .\Objects\Demo (DEMO)
             CODE    1177H     001BH     UNIT         ?PR?STARTUP_TASK?DEMO
             CODE    1192H     001AH     UNIT         ?PR?SW_RESET?COMMON
             CODE    11ACH     0019H     UNIT         ?PR?_RELEASE_SEMAPHORE?SEMAPHORE
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 3
 
 
             CODE    11C5H     0014H     UNIT         ?PR?_PEND_SEMAPHORE?SEMAPHORE
@@ -148,27 +148,16 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_INITIALUART0_TIMER1_TYPE2?COMMON
   +--> ?PR?SHOW_FW_VERSION_NUMBER_TO_PC?VERSION
   +--> ?CO?DEMO
-  +--> ?PR?PRINTF?PRINTF
 
 ?PR?SHOW_FW_VERSION_NUMBER_TO_PC?VERSION         -----    -----      -----    -----
   +--> ?CO?VERSION
-  +--> ?PR?PRINTF?PRINTF
-
-?PR?PRINTF?PRINTF                                0022H.2  0001H.1    004CH    0014H
-  +--> ?PR?PUTCHAR?PUTCHAR
 
 *** NEW ROOT ***************************************************
 
 ?PR?PHASE1?DEMO                                  -----    -----      -----    -----
   +--> ?PR?_PEND_SEMAPHORE?SEMAPHORE
   +--> ?CO?DEMO
-  +--> ?PR?PRINTF?PRINTF
   +--> ?PR?_RELEASE_SEMAPHORE?SEMAPHORE
-
-?PR?_PEND_SEMAPHORE?SEMAPHORE                    -----    -----      -----    -----
-  +--> ?PR?_PEND_SEM?SEMAPHORE
-
-?PR?_PEND_SEM?SEMAPHORE                          -----    -----      004CH    0001H
 
 ?PR?_RELEASE_SEMAPHORE?SEMAPHORE                 -----    -----      -----    -----
   +--> ?PR?_RELEASE_SEM?SEMAPHORE
@@ -178,13 +167,21 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 ?PR?PHASE2?DEMO                                  -----    -----      -----    -----
   +--> ?PR?_PEND_SEMAPHORE?SEMAPHORE
   +--> ?CO?DEMO
-  +--> ?PR?PRINTF?PRINTF
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 4
-
-
   +--> ?PR?_RELEASE_SEMAPHORE?SEMAPHORE
 
 *** NEW ROOT ***************************************************
+
+?PR?PRINTF?PRINTF                                0020H.0  0001H.1    0022H    0014H
+  +--> ?PR?PUTCHAR?PUTCHAR
+
+*** NEW ROOT ***************************************************
+
+?PR?_PEND_SEM?SEMAPHORE                          -----    -----      0022H    0001H
+
+*** NEW ROOT ***************************************************
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 4
+
+
 
 ?C_C51STARTUP                                    -----    -----      -----    -----
   +--> ?C_INITSEG
@@ -206,7 +203,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   C:1177H         PUBLIC        startup_task
-  B:0023H.5       PUBLIC        BIT_TMP
+  B:0021H.3       PUBLIC        BIT_TMP
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   C:0FF7H         PUBLIC        demo_init
@@ -239,12 +236,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:113DH         LINE#         56
   C:113DH         LINE#         58
   C:113DH         LINE#         59
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 5
-
-
   C:113DH         LINE#         60
   C:1142H         LINE#         61
   C:1153H         LINE#         62
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 5
+
+
   C:1158H         LINE#         63
   -------         ENDPROC       PHASE1
   -------         PROC          PHASE2
@@ -299,12 +296,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
   D:009FH         PUBLIC        CHPCON
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 6
-
-
   D:009AH         PUBLIC        SBUF_1
   D:00F8H         PUBLIC        SCON_1
   D:00C6H         PUBLIC        RH3
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 6
+
+
   D:008DH         PUBLIC        TH1
   D:00C5H         PUBLIC        RL3
   C:0DDBH         PUBLIC        _InitialUART1_Timer3
@@ -359,12 +356,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0928H         LINE#         84
   C:0928H         LINE#         85
   C:0928H         LINE#         87
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 7
-
-
   C:093BH         LINE#         90
   C:0940H         LINE#         93
   C:0953H         LINE#         94
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 7
+
+
   C:0966H         LINE#         95
   C:0966H         LINE#         96
   C:0966H         LINE#         98
@@ -419,12 +416,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:10ACH         LINE#         190
   C:10AFH         LINE#         191
   C:10B2H         LINE#         203
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 8
-
-
   C:10CAH         LINE#         205
   C:10CCH         LINE#         206
   -------         ENDPROC       _INITIALUART0_TIMER1_TYPE4
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 8
+
+
   -------         PROC          _INITIALUART0_TIMER3_TYPE5
   D:001AH         SYMBOL        u32Baudrate
   C:0CD2H         LINE#         208
@@ -439,7 +436,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0D2AH         LINE#         232
   -------         ENDPROC       _INITIALUART0_TIMER3_TYPE5
   -------         PROC          _INITIALUART0_TIMER3_TYPE6
-  D:0060H         SYMBOL        u32Baudrate
+  D:0036H         SYMBOL        u32Baudrate
   C:0D2BH         LINE#         234
   C:0D33H         LINE#         235
   C:0D33H         LINE#         236
@@ -452,7 +449,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0D83H         LINE#         258
   -------         ENDPROC       _INITIALUART0_TIMER3_TYPE6
   -------         PROC          _INITIALUART1_TIMER3
-  D:0064H         SYMBOL        u32Baudrate
+  D:003AH         SYMBOL        u32Baudrate
   C:0DDBH         LINE#         260
   C:0DE3H         LINE#         261
   C:0DE3H         LINE#         262
@@ -479,12 +476,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:11FAH         LINE#         314
   C:11FAH         LINE#         315
   C:11FAH         LINE#         316
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 9
-
-
   C:11FCH         LINE#         317
   C:11FEH         LINE#         318
   C:1201H         LINE#         319
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 9
+
+
   -------         ENDPROC       _SEND_DATA_TO_UART0
   -------         PROC          RECEIVE_DATA_FROM_UART1
   -------         DO            
@@ -539,12 +536,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   -------         MODULE        DELAY
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 10
-
-
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 10
+
+
   D:008FH         PUBLIC        WKCON
   D:00D8H         PUBLIC        PWMCON0
   D:00A8H         PUBLIC        IE
@@ -599,12 +596,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:111CH         LINE#         58
   C:111CH         LINE#         59
   C:111CH         LINE#         60
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 11
-
-
   C:111FH         LINE#         61
   C:1122H         LINE#         62
   C:1124H         LINE#         63
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 11
+
+
   C:1128H         LINE#         64
   C:1128H         LINE#         65
   C:112BH         LINE#         66
@@ -616,7 +613,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:113CH         LINE#         72
   -------         ENDPROC       _DELAY10US
   -------         PROC          _TIMER0_DELAY1MS
-  D:0068H         SYMBOL        u32CNT
+  D:003EH         SYMBOL        u32CNT
   C:0F1CH         LINE#         74
   C:0F24H         LINE#         75
   C:0F24H         LINE#         76
@@ -634,7 +631,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0F66H         LINE#         88
   -------         ENDPROC       _TIMER0_DELAY1MS
   -------         PROC          _TIMER1_DELAY1MS
-  D:006CH         SYMBOL        u32CNT
+  D:0042H         SYMBOL        u32CNT
   C:0F67H         LINE#         90
   C:0F6FH         LINE#         91
   C:0F6FH         LINE#         92
@@ -652,19 +649,19 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0FB1H         LINE#         104
   -------         ENDPROC       _TIMER1_DELAY1MS
   -------         PROC          _TIMER2_DELAY1MS
-  D:0070H         SYMBOL        u32CNT
+  D:0046H         SYMBOL        u32CNT
   C:0E81H         LINE#         106
   C:0E89H         LINE#         107
   C:0E89H         LINE#         109
   C:0E8CH         LINE#         110
   C:0E8FH         LINE#         111
   C:0E92H         LINE#         112
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 12
-
-
   C:0E94H         LINE#         113
   C:0EA7H         LINE#         114
   C:0EA7H         LINE#         115
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 12
+
+
   C:0EAAH         LINE#         116
   C:0EADH         LINE#         117
   C:0EB0H         LINE#         118
@@ -674,7 +671,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0ECEH         LINE#         122
   -------         ENDPROC       _TIMER2_DELAY1MS
   -------         PROC          _TIMER3_DELAY1MS
-  D:0074H         SYMBOL        u32CNT
+  D:004AH         SYMBOL        u32CNT
   C:0ECFH         LINE#         124
   C:0ED7H         LINE#         125
   C:0ED7H         LINE#         126
@@ -691,7 +688,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0F1BH         LINE#         137
   -------         ENDPROC       _TIMER3_DELAY1MS
   -------         PROC          _WAKEUP_TIMER_DELAY25MS
-  D:0078H         SYMBOL        u32CNT
+  D:004EH         SYMBOL        u32CNT
   C:0E2EH         LINE#         139
   C:0E36H         LINE#         140
   C:0E36H         LINE#         141
@@ -719,12 +716,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   D:00B0H         PUBLIC        P3
   D:00D8H         PUBLIC        PWMCON0
   D:00A8H         PUBLIC        IE
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 13
-
-
   D:00B8H         PUBLIC        IP
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 13
+
+
   D:00F8H         PUBLIC        SCON_1
   C:0D84H         PUBLIC        Show_FW_Version_Number_To_PC
   D:00E8H         PUBLIC        ADCCON0
@@ -763,7 +760,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:104AH         LINE#         16
   -------         ENDPROC       _INIT_SEMAPHORE
   -------         PROC          _PEND_SEM
-  D:004CH         SYMBOL        sem_id
+  D:0022H         SYMBOL        sem_id
   C:0FB2H         LINE#         20
   C:0FBBH         LINE#         21
   C:0FBBH         LINE#         22
@@ -779,12 +776,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   D:0007H         SYMBOL        sem_id
   C:11C5H         LINE#         34
   C:11C5H         LINE#         35
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 14
-
-
   C:11C5H         LINE#         36
   C:11CBH         LINE#         37
   C:11CBH         LINE#         38
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 14
+
+
   C:11D8H         LINE#         39
   C:11D8H         LINE#         40
   -------         ENDPROC       _PEND_SEMAPHORE
@@ -839,14 +836,14 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   -------         ENDPROC       _RELEASE_SEMAPHORE
   -------         ENDMOD        SEMAPHORE
 
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 15
-
-
   -------         MODULE        ?RTX51_TINY_KERNAL
   C:1212H         SEGMENT       ?RTX?TASKENT?S
-  I:0082H         SEGMENT       ?RTX?TASKSP?S
-  I:007CH         SEGMENT       ?RTX?TASKSTATE?S
-  B:0023H.3       SEGMENT       ?RTX?BITS
+  I:0058H         SEGMENT       ?RTX?TASKSP?S
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 15
+
+
+  I:0052H         SEGMENT       ?RTX?TASKSTATE?S
+  B:0021H.1       SEGMENT       ?RTX?BITS
   C:036AH         SEGMENT       ?RTX?CODE
   C:03B8H         PUBLIC        ?RTX?SET_ISR
   D:000CH         PUBLIC        ?RTX_CURRENTTASK
@@ -855,8 +852,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   N:00FFH         PUBLIC        ?RTX_RAMTOP
   C:1212H         PUBLIC        ?RTX_TASKENTRY
   C:04E6H         PUBLIC        ?RTX_TASKIDX
-  I:0082H         PUBLIC        ?RTX_TASKSP
-  I:007CH         PUBLIC        ?RTX_TASKSTATUS
+  I:0058H         PUBLIC        ?RTX_TASKSP
+  I:0052H         PUBLIC        ?RTX_TASKSTATUS
   C:04AAH         PUBLIC        MAIN
   C:03E6H         PUBLIC        OS_SWITCH_TASK
   C:03EFH         SYMBOL        ?C0001
@@ -871,14 +868,14 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0451H         SYMBOL        ?C0016
   N:0000H         SYMBOL        ?RTX51_TINY_KERNAL
   N:D8F0H         SYMBOL        ?RTX_CLOCK
-  B:0023H.4       SYMBOL        ?RTX_ISR_SIG
+  B:0021H.2       SYMBOL        ?RTX_ISR_SIG
   N:0008H         SYMBOL        ?RTX_REGISTERBANK
   D:000DH         SYMBOL        ?RTX_ROBINTIME
   D:000AH         SYMBOL        ?RTX_SAVEACC
   D:000BH         SYMBOL        ?RTX_SAVEPSW
   C:036AH         SYMBOL        ?RTX_STACKERROR
   C:03BEH         SYMBOL        ?RTX_TASKSWITCHING
-  B:0023H.3       SYMBOL        ?RTX_TS_DELAY
+  B:0021H.1       SYMBOL        ?RTX_TS_DELAY
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
   N:0005H         SYMBOL        B_ACTIVE
@@ -899,12 +896,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   B:00A8H.7       SYMBOL        EA
   B:00A8H.4       SYMBOL        ES
   B:00A8H.1       SYMBOL        ET0
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 16
-
-
   B:00A8H.3       SYMBOL        ET1
   B:00A8H.0       SYMBOL        EX0
   B:00A8H.2       SYMBOL        EX1
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 16
+
+
   N:0014H         SYMBOL        FREE_STACK
   C:036EH         SYMBOL        HW_TIMER
   D:00A8H         SYMBOL        IE
@@ -940,7 +937,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:047EH         SYMBOL        SIGNALON
   N:0004H         SYMBOL        SIG_EVENT
   D:0081H         SYMBOL        SP
-  I:007DH         SYMBOL        TASKSTATE
+  I:0053H         SYMBOL        TASKSTATE
   D:0088H         SYMBOL        TCON
   B:0088H.5       SYMBOL        TF0
   B:0088H.7       SYMBOL        TF1
@@ -949,7 +946,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:047AH         SYMBOL        TIMEOUTON
   C:036FH         SYMBOL        TIMERINT
   C:039FH         SYMBOL        TIMERLOOP
-  I:007CH         SYMBOL        TIMERVAL
+  I:0052H         SYMBOL        TIMERVAL
   N:0005H         SYMBOL        TIMESHARING
   D:008AH         SYMBOL        TL0
   D:008BH         SYMBOL        TL1
@@ -959,12 +956,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   B:0088H.6       SYMBOL        TR1
   C:000BH         LINE#         271
   C:036AH         LINE#         279
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 17
-
-
   C:036CH         LINE#         279
   C:036EH         LINE#         282
   C:036FH         LINE#         299
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 17
+
+
   C:0372H         LINE#         301
   C:0375H         LINE#         302
   C:0378H         LINE#         303
@@ -1019,12 +1016,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:03D2H         LINE#         380
   C:03D4H         LINE#         381
   C:03D6H         LINE#         382
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 18
-
-
   C:03D8H         LINE#         387
   C:03DAH         LINE#         388
   C:03DBH         LINE#         389
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 18
+
+
   C:03DDH         LINE#         390
   C:03DEH         LINE#         391
   C:03E0H         LINE#         392
@@ -1079,12 +1076,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0430H         LINE#         506
   C:0431H         LINE#         507
   C:0432H         LINE#         508
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 19
-
-
   C:0434H         LINE#         510
   C:0436H         LINE#         511
   C:0438H         LINE#         512
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 19
+
+
   C:0439H         LINE#         513
   C:043AH         LINE#         516
   C:043CH         LINE#         517
@@ -1139,12 +1136,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0495H         LINE#         618
   C:0497H         LINE#         619
   C:0499H         LINE#         620
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 20
-
-
   C:049BH         LINE#         621
   C:049DH         LINE#         622
   C:049FH         LINE#         623
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 20
+
+
   C:04A1H         LINE#         624
   C:04A3H         LINE#         625
   C:04A5H         LINE#         626
@@ -1187,7 +1184,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
 
   -------         MODULE        ?C_STARTUP
   C:0BE9H         SEGMENT       ?C_C51STARTUP
-  I:0085H         SEGMENT       ?STACK
+  I:005BH         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
@@ -1199,12 +1196,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:0BECH         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 21
-
-
   N:0000H         SYMBOL        PDATALEN
   N:0000H         SYMBOL        PDATASTART
   N:0000H         SYMBOL        PPAGE
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 21
+
+
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
@@ -1255,16 +1252,16 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   -------         ENDMOD        ?C_IBP
 
   -------         MODULE        PRINTF
-  D:004CH         PUBLIC        ?_PRINTF517?BYTE
-  D:004CH         PUBLIC        ?_PRINTF?BYTE
-  D:004CH         PUBLIC        ?_SPRINTF517?BYTE
-  D:004CH         PUBLIC        ?_SPRINTF?BYTE
-BL51 BANKED LINKER/LOCATER V6.22                                                      09/12/2016  23:04:43  PAGE 22
-
-
+  D:0022H         PUBLIC        ?_PRINTF517?BYTE
+  D:0022H         PUBLIC        ?_PRINTF?BYTE
+  D:0022H         PUBLIC        ?_SPRINTF517?BYTE
+  D:0022H         PUBLIC        ?_SPRINTF?BYTE
   C:0070H         PUBLIC        _PRINTF
   C:0070H         PUBLIC        _PRINTF517
   C:006AH         PUBLIC        _SPRINTF
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/13/2016  22:48:45  PAGE 22
+
+
   C:006AH         PUBLIC        _SPRINTF517
   -------         ENDMOD        PRINTF
 
@@ -1292,20 +1289,5 @@ SYMBOL TABLE OF MODULE:  .\Objects\Demo (DEMO)
   C:10F5H         PUBLIC        _PUTCHAR
   -------         ENDMOD        PUTCHAR
 
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?PRINTF?PRINTF
-    CALLER1: ?PR?STARTUP_TASK?DEMO
-    CALLER2: ?PR?PHASE1?DEMO
-
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?_PEND_SEM?SEMAPHORE
-    CALLER1: ?PR?PHASE1?DEMO
-    CALLER2: ?PR?PHASE2?DEMO
-
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?PRINTF?PRINTF
-    CALLER1: ?PR?PHASE1?DEMO
-    CALLER2: ?PR?PHASE2?DEMO
-
-Program Size: data=132.6 xdata=0 code=4636
-LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)
+Program Size: data=90.4 xdata=0 code=4636
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

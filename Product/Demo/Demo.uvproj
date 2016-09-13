@@ -333,7 +333,7 @@
             <CaseSensitiveSymbols>0</CaseSensitiveSymbols>
             <WarningLevel>2</WarningLevel>
             <DataOverlaying>1</DataOverlaying>
-            <OverlayString></OverlayString>
+            <OverlayString>* !(printf,pend_sem)</OverlayString>
             <MiscControls></MiscControls>
             <DisableWarningNumbers>16</DisableWarningNumbers>
             <LinkerCmdFile></LinkerCmdFile>
