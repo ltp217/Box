@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   SEMAPHORE                                                             09/13/2016 22:48:45 PAGE 1   
+C51 COMPILER V9.54   SEMAPHORE                                                             09/13/2016 22:53:22 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE SEMAPHORE
@@ -62,7 +62,7 @@ line level    source
   52   2            
   53   2              if(sem_tab[sem_id].count > sem_tab[sem_id].max_count)
   54   2              {
-C51 COMPILER V9.54   SEMAPHORE                                                             09/13/2016 22:48:45 PAGE 2   
+C51 COMPILER V9.54   SEMAPHORE                                                             09/13/2016 22:53:22 PAGE 2   
 
   55   3                  sem_tab[sem_id].count = sem_tab[sem_id].max_count;
   56   3              }

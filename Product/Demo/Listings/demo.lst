@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   DEMO                                                                  09/13/2016 22:48:44 PAGE 1   
+C51 COMPILER V9.54   DEMO                                                                  09/13/2016 22:53:21 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE DEMO
@@ -62,7 +62,7 @@ line level    source
   52          
   53          /******************************************************************************/
   54          /*    Task 1 'phase1':                                                        */
-C51 COMPILER V9.54   DEMO                                                                  09/13/2016 22:48:44 PAGE 2   
+C51 COMPILER V9.54   DEMO                                                                  09/13/2016 22:53:21 PAGE 2   
 
   55          /******************************************************************************/
   56          void phase1 (void) _task_  PHASE1 
