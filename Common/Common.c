@@ -319,6 +319,25 @@ void Send_Data_To_UART0 (UINT8 c)
 }
 /**************************************************************************
  *
+ *  Function Name: Send_String_To_UART0()
+ *
+ *  Descriptions: Send SBUF of N76E885 to PC
+ *
+ *  Arguments:
+ *
+ *  Returns: None
+ *
+ **************************************************************************/
+void Send_String_To_UART0 (UINT8 *str)
+{
+    while(*str != '\0')
+    {
+        Send_Data_To_UART0(*str);
+        str++;
+    }
+}
+/**************************************************************************
+ *
  *  Function Name: Receive_Data_From_UART1()
  *
  *  Descriptions: Receive PC data to SBUF of N76E885
@@ -353,6 +372,25 @@ void Send_Data_To_UART1 (UINT8 c)
     TI_1 = 0;
     SBUF_1 = c;
     while(TI_1==0);
+}
+/**************************************************************************
+ *
+ *  Function Name: Send_String_To_UART1()
+ *
+ *  Descriptions: Send SBUF of N76E885 to PC
+ *
+ *  Arguments:
+ *
+ *  Returns: None
+ *
+ **************************************************************************/
+void Send_String_To_UART1 (UINT8 *str)
+{
+    while(*str != '\0')
+    {
+        Send_Data_To_UART1(*str);
+        str++;
+    }
 }
 /*==========================================================================*/
 void Set_All_GPIO_Quasi_Mode(void)
