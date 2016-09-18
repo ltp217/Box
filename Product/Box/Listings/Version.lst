@@ -1,0 +1,69 @@
+C51 COMPILER V9.54   VERSION                                                               09/18/2016 22:39:25 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE VERSION
+OBJECT MODULE PLACED IN .\Objects\Version.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\Common\Version.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\Include) DE
+                    -FINE(FOSC_221184) DEBUG OBJECTEXTEND PRINT(.\Listings\Version.lst) TABS(2) OBJECT(.\Objects\Version.obj)
+
+line level    source
+
+   1          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   2          /*                                                                                                        
+             - */
+   3          /* Copyright(c) 2015 Nuvoton Technology Corp. All rights reserved.                                        
+             - */
+   4          /*                                                                                                        
+             - */
+   5          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   6          
+   7          //********************************************************************************************************
+             -***
+   8          //  Nuvoton Technoledge Corp. 
+   9          //  Website: http://www.nuvoton.com
+  10          //  E-Mail : MicroC-8bit@nuvoton.com
+  11          //  Date   : May/1/2015
+  12          //********************************************************************************************************
+             -***
+  13          
+  14          #include <stdio.h>
+  15          #include "Common.h"
+  16          
+  17          #define FW_Version_Major                    0x01
+  18          #define FW_Version_Minor                    0x00
+  19          #define FW_Version_Modifi                   0x00
+  20          
+  21          #define Date_Y                              2016
+  22          #define Date_M                              9
+  23          #define Date_D                              16
+  24          
+  25          //--------------------------------------------------------------------------------------------------------
+             ----
+  26          void Show_FW_Version_Number_To_PC(void)
+  27          {
+  28   1          printf ("====================================================================\r\n");
+  29   1          printf ("*    Copyright(c) 2016 Molei Technology Corp. All rights reserved.  \r\n");
+  30   1          printf ("*    Contact E-Mail: mtkowen@hotmail.com                            \r\n");
+  31   1          printf ("*    FW Version  : %2d.%2d.%2d\r\n",(uint16_t)FW_Version_Major,(uint16_t)FW_Version_Minor,(ui
+             -nt16_t)FW_Version_Modifi);
+  32   1          printf ("*    Finished Date : %2d.%2d.%2d\r\n",(uint16_t)Date_Y,(uint16_t)Date_M,(uint16_t)Date_D);
+  33   1          printf ("====================================================================");
+  34   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     87    ----
+   CONSTANT SIZE    =    350    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.54   VERSION                                                               09/18/2016 22:39:25 PAGE 2   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

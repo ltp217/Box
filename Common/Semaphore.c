@@ -1,6 +1,4 @@
 #include <rtx51tny.h>                 /* RTX-51 tiny functions & defines      */
-
-#include "Typedef.h"
 #include "Common.h"
 #include "Semaphore.h"
 

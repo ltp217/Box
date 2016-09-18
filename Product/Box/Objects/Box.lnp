@@ -1,0 +1,14 @@
+".\Objects\Box.obj",
+".\Objects\STARTUP.obj",
+".\Objects\Delay.obj",
+".\Objects\Semaphore.obj",
+".\Objects\Version.obj",
+".\Objects\Adc.obj",
+".\Objects\Clock.obj",
+".\Objects\Gpio.obj",
+".\Objects\Serial.obj",
+".\Objects\Conf_tny.obj" 
+TO ".\Objects\Box" Rtx51Tiny 
+PRINT(".\Listings\Box.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 
+OVERLAY( * !(printf,pend_sem) )

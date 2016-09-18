@@ -1,10 +1,13 @@
 ".\Objects\demo.obj",
-".\Objects\Common.obj",
+".\Objects\STARTUP.obj",
 ".\Objects\Delay.obj",
 ".\Objects\Version.obj",
 ".\Objects\Semaphore.obj",
-".\Objects\Conf_tny.obj",
-".\Objects\STARTUP.obj" 
+".\Objects\Adc.obj",
+".\Objects\Clock.obj",
+".\Objects\Gpio.obj",
+".\Objects\Serial.obj",
+".\Objects\Conf_tny.obj" 
 TO ".\Objects\Demo" Rtx51Tiny 
 PRINT(".\Listings\Demo.m51") RAMSIZE(256) 
 DISABLEWARNING (16) 

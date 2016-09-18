@@ -11,13 +11,7 @@
 //  Date   : Apr/21/2015
 //***********************************************************************************************************
 
-#include "N76E885.h"
-#include "Version.h"
-#include "Typedef.h"
-#include "Define.h"
-#include "SFR_Macro.h"
 #include "Common.h"
-#include "Delay.h"
 
 #ifdef FOSC_110592
     #define VALUE_10us          65536-9     //9*12/11.0592 = 10 uS,  Timer Clock = Fsys/12
@@ -49,27 +43,77 @@ void Random_Delay(void) reentrant //reentrant --> ¦b¤¤Â_ ISR ½Õ¥Î¦¹ function ®É­
 {
     UINT32 u32CNT,u32Tmp;
     
-    for (u32CNT=0;u32CNT<0x0000FFFF;u32CNT++)
+    for (u32CNT = 0; u32CNT < 0x0000FFFF; u32CNT++)
     {
-        u32Tmp ++;
+        u32Tmp++;
     }
 }
 //-------------------------------------------------------------------------
-void Delay10us(UINT16 u16CNT)
+void Timer0_Delay10us(UINT32 u32CNT)
 {
     clr_T0M;                                //T0M=0, Timer0 Clock = Fsys/12
     TMOD |= 0x01;                           //Timer0 is 16-bit mode
     set_TR0;                                //Trigger Timer0
-    while (u16CNT != 0)
+    while (u32CNT != 0)
     {
         TL0 = LOBYTE(VALUE_10us);   
         TH0 = HIBYTE(VALUE_10us);
         while (TF0 != 1);                   //Check Timer0 Time-Out Flag
         clr_TF0;
-        u16CNT --;
+        u32CNT --;
     }
     clr_TR0;                                //Stop the Timer0
 }
+//------------------------------------------------------------------------------
+void Timer1_Delay10us(UINT32 u32CNT)
+{
+    clr_T1M;                                //T1M=0, Timer1 Clock = Fsys/12
+    TMOD |= 0x10;                           //Timer1 is 16-bit mode
+    set_TR1;                                //Trigger Timer1
+    while (u32CNT != 0)
+    {
+        TL1 = LOBYTE(VALUE_10us); 
+        TH1 = HIBYTE(VALUE_10us);
+        while (TF1 != 1);                   //Check Timer1 Time-Out Flag
+        clr_TF1;
+        u32CNT --;
+    }
+    clr_TR1;                                //Stop the Timer1
+}
+//------------------------------------------------------------------------------
+void Timer2_Delay10us(UINT32 u32CNT)
+{
+                                             //Timer2 Clock = Fsys/4 
+    clr_T2DIV2;
+    clr_T2DIV1;
+    set_T2DIV0;
+    set_TR2;                                //Trigger Timer2
+    while (u32CNT != 0)
+    {
+        TL2 = LOBYTE(TM3_VALUE_10us); 
+        TH2 = HIBYTE(TM3_VALUE_10us);
+        while (TF2 != 1);                   //Check Timer2 Time-Out Flag
+        clr_TF2;
+        u32CNT --;
+    }
+    TR2 =0 ;                                //Stop the Timer2
+}
+//------------------------------------------------------------------------------
+void Timer3_Delay10us(UINT32 u32CNT)
+{
+    T3CON = 0x02;                           //Timer3 Clock = Fsys/4
+    set_TR3;                                //Trigger Timer3
+    while (u32CNT != 0)
+    {
+        RL3 = LOBYTE(TM3_VALUE_10us); 
+        RH3 = HIBYTE(TM3_VALUE_10us);
+        while ((T3CON&SET_BIT4) != SET_BIT4);//Check Timer3 Time-Out Flag
+        clr_TF3;
+        u32CNT --;
+    }
+    clr_TR3;                                //Stop the Timer3
+}
+	
 //------------------------------------------------------------------------------
 void Timer0_Delay1ms(UINT32 u32CNT)
 {
@@ -105,7 +149,7 @@ void Timer1_Delay1ms(UINT32 u32CNT)
 //------------------------------------------------------------------------------
 void Timer2_Delay1ms(UINT32 u32CNT)
 {
-    /*                                      //Timer2 Clock = Fsys/4 */
+                                             //Timer2 Clock = Fsys/4 
     clr_T2DIV2;
     clr_T2DIV1;
     set_T2DIV0;
@@ -135,6 +179,7 @@ void Timer3_Delay1ms(UINT32 u32CNT)
     }
     clr_TR3;                                //Stop the Timer3
 }
+
 //------------------------------------------------------------------------------
 void WakeUp_Timer_Delay25ms(UINT32 u32CNT)  //Clock source is 10KHz
 {

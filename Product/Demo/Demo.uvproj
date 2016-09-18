@@ -368,16 +368,16 @@
               <FileType>1</FileType>
               <FilePath>.\Code\demo.c</FilePath>
             </File>
+            <File>
+              <FileName>STARTUP.A51</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Startup\STARTUP.A51</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Common</GroupName>
           <Files>
-            <File>
-              <FileName>Common.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Common\Common.c</FilePath>
-            </File>
             <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
@@ -393,6 +393,26 @@
               <FileType>1</FileType>
               <FilePath>..\..\Common\Semaphore.c</FilePath>
             </File>
+            <File>
+              <FileName>Adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>Gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Common\Serial.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -402,16 +422,6 @@
               <FileName>Conf_tny.A51</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\Config\Conf_tny.A51</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Startup</GroupName>
-          <Files>
-            <File>
-              <FileName>STARTUP.A51</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\Startup\STARTUP.A51</FilePath>
             </File>
           </Files>
         </Group>

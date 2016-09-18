@@ -1,0 +1,147 @@
+C51 COMPILER V9.54   CLOCK                                                                 09/18/2016 22:39:26 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE CLOCK
+OBJECT MODULE PLACED IN .\Objects\Clock.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\Common\Clock.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\Include) DEFI
+                    -NE(FOSC_221184) DEBUG OBJECTEXTEND PRINT(.\Listings\Clock.lst) TABS(2) OBJECT(.\Objects\Clock.obj)
+
+line level    source
+
+   1          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   2          /*                                                                                                        
+             - */
+   3          /* Copyright(c) 2015 Nuvoton Technology Corp. All rights reserved.                                        
+             - */
+   4          /*                                                                                                        
+             - */
+   5          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   6          
+   7          //********************************************************************************************************
+             -***
+   8          //  Nuvoton Technoledge Corp. 
+   9          //  Website: http://www.nuvoton.com
+  10          //  E-Mail : MicroC-8bit@nuvoton.com
+  11          //  Date   : Apr/21/2015
+  12          //********************************************************************************************************
+             -***
+  13          
+  14          #include "Common.h"
+  15          
+  16          /***************************************************************************************************
+  17              System Clock Source Select
+  18          ****************************************************************************************************/
+  19          void System_Clock_Select(E_SYSTEM_CLOCK clock)
+  20          {
+  21   1          switch (clock)
+  22   1          {
+  23   2              case E_HXTEN:
+  24   2              {
+  25   3                  //step1: enable clock source
+  26   3                  set_EXTEN1;
+  27   3                  clr_EXTEN0;
+  28   3                      
+  29   3                  //step2: check ready
+  30   3                  while((CKSWT&SET_BIT7)==0);
+  31   3                      
+  32   3                  //step3: switching system clock source
+  33   3                  clr_OSC1;
+  34   3                  set_OSC0;
+  35   3              }
+  36   2              break;
+  37   2      
+  38   2              case E_LXTEN:
+  39   2              {
+  40   3                  //step1: enable clock source
+  41   3                  clr_EXTEN1;
+  42   3                  set_EXTEN0;
+  43   3                      
+  44   3                  //step2: check ready
+  45   3                  while((CKSWT&SET_BIT6)==0);
+  46   3                      
+  47   3                  //step3: switching system clock source
+C51 COMPILER V9.54   CLOCK                                                                 09/18/2016 22:39:26 PAGE 2   
+
+  48   3                  clr_OSC1;
+  49   3                  set_OSC0;
+  50   3              }
+  51   2              break;
+  52   2      
+  53   2              case E_OSCEN:
+  54   2              {
+  55   3                  //step1: enable clock source
+  56   3                  clr_EXTEN1;
+  57   3                  clr_EXTEN0;
+  58   3                      
+  59   3                  //step2: check ready
+  60   3                  while((CKSWT&SET_BIT3)==0);
+  61   3                      
+  62   3                  //step3: switching system clock source
+  63   3                  clr_OSC1;
+  64   3                  set_OSC0;
+  65   3              }
+  66   2              break;
+  67   2              
+  68   2              case E_HIRCEN: //power on default
+  69   2              {
+  70   3                  //step1: enable clock source
+  71   3                  set_HIRCEN;
+  72   3                      
+  73   3                  //step2: check ready
+  74   3                  while((CKSWT&SET_BIT5)==0);
+  75   3                      
+  76   3                  //step3: switching system clock source
+  77   3                  clr_OSC1;
+  78   3                  clr_OSC0;
+  79   3              }
+  80   2              break;
+  81   2      
+  82   2              case E_LIRCEN:
+  83   2              {
+  84   3                  //step1: enable clock source
+  85   3                  set_LIRCEN;
+  86   3                      
+  87   3                  //step2: check ready
+  88   3                  while((CKSWT&SET_BIT4)==0);
+  89   3                      
+  90   3                  //step3: switching system clock source
+  91   3                  set_OSC1;
+  92   3                  clr_OSC0;
+  93   3              }
+  94   2              break;
+  95   2          }
+  96   1         
+  97   1          //step4: check system clock switching OK or NG?
+  98   1          while((CKEN&SET_BIT0)==1);  //Check Clock switch fault flag.
+  99   1      }
+ 100          
+ 101          /*==========================================================================*/
+ 102          void SW_Reset(void)
+ 103          {
+ 104   1          TA = 0xAA;
+ 105   1          TA = 0x55;
+ 106   1          set_SWRST;
+ 107   1      }
+ 108          /*==========================================================================*/
+ 109          void Fsys_Clock_Output_On_P26(void)
+C51 COMPILER V9.54   CLOCK                                                                 09/18/2016 22:39:26 PAGE 3   
+
+ 110          {
+ 111   1          set_CLOEN;                                  //System Clock Output Enable
+ 112   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    353    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

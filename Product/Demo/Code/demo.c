@@ -19,8 +19,6 @@
 
 bit BIT_TMP;
 
-//OVERLAY(?PR?PRINTF?PRINTF ! *)
-
 void demo_init(void)
 {
     /* Note

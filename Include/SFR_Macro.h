@@ -407,7 +407,7 @@
 #define set_FBD0    FBD     |= SET_BIT0
 
 #define clr_FBF     FBD     &= ~SET_BIT7
-#define clr_FBINLS  FBD      &= ~SET_BIT6
+#define clr_FBINLS  FBD     &= ~SET_BIT6
 #define clr_FBD5    FBD     &= ~SET_BIT5
 #define clr_FBD4    FBD     &= ~SET_BIT4
 #define clr_FBD3    FBD     &= ~SET_BIT3

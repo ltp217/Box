@@ -1,0 +1,243 @@
+C51 COMPILER V9.54   GPIO                                                                  09/18/2016 22:39:26 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE GPIO
+OBJECT MODULE PLACED IN .\Objects\Gpio.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\Common\Gpio.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\Include) DEFIN
+                    -E(FOSC_221184) DEBUG OBJECTEXTEND PRINT(.\Listings\Gpio.lst) TABS(2) OBJECT(.\Objects\Gpio.obj)
+
+line level    source
+
+   1          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   2          /*                                                                                                        
+             - */
+   3          /* Copyright(c) 2015 Nuvoton Technology Corp. All rights reserved.                                        
+             - */
+   4          /*                                                                                                        
+             - */
+   5          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   6          
+   7          //********************************************************************************************************
+             -***
+   8          //  Nuvoton Technoledge Corp. 
+   9          //  Website: http://www.nuvoton.com
+  10          //  E-Mail : MicroC-8bit@nuvoton.com
+  11          //  Date   : Apr/21/2015
+  12          //********************************************************************************************************
+             -***
+  13          
+  14          #include <absacc.h> 
+  15          #include "Common.h"
+  16          
+  17          /*
+  18          //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
+  19          //
+  20          //<e0> System Clock Source Configuration
+  21          // <o1> System Clock Source Selection
+  22          //      <0=> 2~25MHz    XTAL
+  23          //      <1=> 32.768KHz  XTAL
+  24          //      <2=> 22.1184MHz Internal
+  25          //      <3=> 10KHz      Internal
+  26          //      <4=> OSC-In     External
+  27          //</e>
+  28          //
+  29          //<e2> Clock Divider Configuration
+  30          //     <o3.0..7>  System Clock Source Devider  <1-255:1>
+  31          //                     <i> Fsys = (System Clock Source) / (2 * Devider)
+  32          //</e>
+  33          //
+  34          // <o4> Port0 Mode Selection (P0[7:0])
+  35          //      <0=> Quasi-Bidirectional
+  36          //      <1=> Push-Pull
+  37          //      <2=> Input-Only (high-impedance)
+  38          //      <3=> Open-Drain
+  39          //
+  40          // <o5> Port1 Mode Selection (P1[1:0])
+  41          //      <0=> Quasi-Bidirectional
+  42          //      <1=> Push-Pull
+  43          //      <2=> Input-Only (high-impedance)
+  44          //      <3=> Open-Drain
+  45          //
+  46          // <o6> Port2 Mode Selection (P2[6:0])
+  47          //      <0=> Quasi-Bidirectional
+C51 COMPILER V9.54   GPIO                                                                  09/18/2016 22:39:26 PAGE 2   
+
+  48          //      <1=> Push-Pull
+  49          //      <2=> Input-Only (high-impedance)
+  50          //      <3=> Open-Drain
+  51          //
+  52          // <o7> Port3 Mode Selection (P3[7:0])
+  53          //      <0=> Quasi-Bidirectional
+  54          //      <1=> Push-Pull
+  55          //      <2=> Input-Only (high-impedance)
+  56          //      <3=> Open-Drain
+  57          //-------- <<< end of configuration section >>> ------------------------------
+  58          */
+  59          
+  60          void Set_Port0_GPIO_Mode(E_GPIO_MODE GpioMode)
+  61          {
+  62   1          switch(GpioMode)
+  63   1          {
+  64   2              case E_QUASI_BIDIRECTIONAL:
+  65   2              {
+  66   3                  P0M1 = 0x00;
+  67   3                  P0M2 = 0x00;
+  68   3              }
+  69   2              break;
+  70   2      
+  71   2              case E_PUSH_UP:
+  72   2              {
+  73   3                  P0M1 = 0x00;
+  74   3                  P0M2 = 0xFF;   
+  75   3              }
+  76   2              break;
+  77   2      
+  78   2              case E_INPUT_ONLY:
+  79   2              {
+  80   3                  P0M1 = 0xFF;
+  81   3                  P0M2 = 0x00;   
+  82   3              }
+  83   2              break;
+  84   2      
+  85   2              case E_OPEN_DRAIN:
+  86   2              {
+  87   3                  P0M1 = 0xFF;
+  88   3                  P0M2 = 0xFF;   
+  89   3              }
+  90   2              break;
+  91   2          }
+  92   1      }
+  93          
+  94          void Set_Port1_GPIO_Mode(E_GPIO_MODE GpioMode)
+  95          {
+  96   1          switch(GpioMode)
+  97   1          {
+  98   2              case E_QUASI_BIDIRECTIONAL:
+  99   2              {
+ 100   3                  P1M1 = 0x00;
+ 101   3                  P1M2 = 0x00;
+ 102   3              }
+ 103   2              break;
+ 104   2      
+ 105   2              case E_PUSH_UP:
+ 106   2              {
+ 107   3                  P1M1 = 0x00;
+ 108   3                  P1M2 = 0x03;   
+ 109   3              }
+C51 COMPILER V9.54   GPIO                                                                  09/18/2016 22:39:26 PAGE 3   
+
+ 110   2              break;
+ 111   2      
+ 112   2              case E_INPUT_ONLY:
+ 113   2              {
+ 114   3                  P1M1 = 0x03;
+ 115   3                  P1M2 = 0x00;   
+ 116   3              }
+ 117   2              break;
+ 118   2      
+ 119   2              case E_OPEN_DRAIN:
+ 120   2              {
+ 121   3                  P1M1 = 0x03;
+ 122   3                  P1M2 = 0x03;   
+ 123   3              }
+ 124   2              break;
+ 125   2          }
+ 126   1      }
+ 127          
+ 128          void Set_Port2_GPIO_Mode(E_GPIO_MODE GpioMode)
+ 129          {
+ 130   1          switch(GpioMode)
+ 131   1          {
+ 132   2              case E_QUASI_BIDIRECTIONAL:
+ 133   2              {
+ 134   3                  P2M1 = 0x00;
+ 135   3                  P2M2 = 0x00;
+ 136   3              }
+ 137   2              break;
+ 138   2      
+ 139   2              case E_PUSH_UP:
+ 140   2              {
+ 141   3                  P2M1 = 0x00;
+ 142   3                  P2M2 = 0xFF;   
+ 143   3              }
+ 144   2              break;
+ 145   2      
+ 146   2              case E_INPUT_ONLY:
+ 147   2              {
+ 148   3                  P2M1 = 0x7F;
+ 149   3                  P2M2 = 0x00;   
+ 150   3              }
+ 151   2              break;
+ 152   2      
+ 153   2              case E_OPEN_DRAIN:
+ 154   2              {
+ 155   3                  P2M1 = 0x7F;
+ 156   3                  P2M2 = 0x7F;   
+ 157   3              }
+ 158   2              break;
+ 159   2          }
+ 160   1      }
+ 161          
+ 162          void Set_Port3_GPIO_Mode(E_GPIO_MODE GpioMode)
+ 163          {
+ 164   1          switch(GpioMode)
+ 165   1          {
+ 166   2              case E_QUASI_BIDIRECTIONAL:
+ 167   2              {
+ 168   3                  P3M1 = 0x00;
+ 169   3                  P3M2 = 0x00;
+ 170   3              }
+ 171   2              break;
+C51 COMPILER V9.54   GPIO                                                                  09/18/2016 22:39:26 PAGE 4   
+
+ 172   2      
+ 173   2              case E_PUSH_UP:
+ 174   2              {
+ 175   3                  P3M1 = 0x00;
+ 176   3                  P3M2 = 0xFF;   
+ 177   3              }
+ 178   2              break;
+ 179   2      
+ 180   2              case E_INPUT_ONLY:
+ 181   2              {
+ 182   3                  P3M1 = 0xFF;
+ 183   3                  P3M2 = 0x00;   
+ 184   3              }
+ 185   2              break;
+ 186   2      
+ 187   2              case E_OPEN_DRAIN:
+ 188   2              {
+ 189   3                  P3M1 = 0xFF;
+ 190   3                  P3M2 = 0xFF;   
+ 191   3              }
+ 192   2              break;
+ 193   2          }
+ 194   1      }
+ 195          
+ 196          void Set_All_GPIO_Quasi_Mode(void)
+ 197          {
+ 198   1          P0M1 = 0x00;
+ 199   1          P0M2 = 0x00;
+ 200   1          P1M1 = 0x00;
+ 201   1          P1M2 = 0x00;
+ 202   1          P2M1 = 0x00;
+ 203   1          P2M2 = 0x00;
+ 204   1          P3M1 = 0x00;
+ 205   1          P3M2 = 0x00;
+ 206   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    176    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
